@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,8 +24,74 @@
   color: white;
 }
 
+.App-body {
+  background-color: #282c34;
+  min-height: 80vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+}
+
 .App-link {
   color: #61dafb;
+}
+
+.flat-button {
+  background: transparent;
+  color: #fff;
+  padding: 10px 15px;
+  border: solid 1px #fff;
+}
+
+.review-header {
+  border-bottom: solid 1px #fff;
+  width: 350px;
+}
+
+.review-header > .title {
+  margin-bottom: 20px;
+}
+
+.review-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.review-body {
+  width: 350px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.review-body > .title,
+.review-container > .title {
+  margin-bottom: 20px;
+}
+
+.review-container {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.review-container > .subheading {
+  font-size: 0.7em;
+  margin-bottom: 20px;
+}
+
+.review-container > textarea {
+  background: transparent;
+  border: solid 1px #fff;
+  height: 100px;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
 @keyframes App-logo-spin {
