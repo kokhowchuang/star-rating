@@ -1,23 +1,37 @@
 import "./App.css";
 import "react-slidedown/lib/slidedown.css";
+import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { SlideDown } from "react-slidedown";
 
 import UserRating from "./components/user-rating";
+import Rating from "./components/rating";
 import { submitRating } from "./api/submitRating";
+import { getRating } from "./api/getRating";
+import { selectRatingList } from "./reducer/ratingSlice";
 
 function App() {
-  const [close, setClose] = useState(false);
+  const dispatch = useDispatch();
+  const rows = useSelector(selectRatingList);
+  const [close, setClose] = useState(true);
   const [review, setReview] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(5);
+
+  useEffect(() => {
+    dispatch(getRating());
+  }, [dispatch]);
 
   const handleOpen = () => {
     setClose(!close);
   };
 
   const handleSubmitRating = () => {
-    console.log(review);
-    // submitRating({ review, rating });
+    dispatch(submitRating({ review, rating }));
+    setClose(!close);
+  };
+
+  const handleClickedRating = (score) => {
+    setRating(score);
   };
 
   return (
@@ -35,18 +49,32 @@ function App() {
           </div>
         </div>
       </header>
-      <body className="App-body">
+      <div className="App-body">
         <div className="review-body">
           <div className="title">Reviews</div>
           <div className="user-review-list">
-            <UserRating></UserRating>
-            <UserRating></UserRating>
+            {rows.map((value, index) => {
+              return (
+                <UserRating
+                  key={"rating-" + index}
+                  rating={value.score}
+                  review={value.review}
+                ></UserRating>
+              );
+            })}
           </div>
         </div>
         <SlideDown className={"my-dropdown-slidedown"} closed={close}>
           <div className="review-container">
             <div className="title">What's your rating?</div>
             <span className="subheading">Rating</span>
+            <span>
+              <Rating
+                precision={0.5}
+                clickable={true}
+                onChange={handleClickedRating}
+              ></Rating>
+            </span>
             <span className="subheading">Review</span>
             <textarea
               type="text"
@@ -60,7 +88,7 @@ function App() {
             </button>
           </div>
         </SlideDown>
-      </body>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export const ratingSlice = createSlice({
       state.list.push(action.payload);
     },
     fetch: (state, action) => {
-      state.list = [...state.list];
+      state.list = [...action.payload];
     },
     throwError: (state, action) => {
       state.error = action.payload;
@@ -20,6 +20,6 @@ export const ratingSlice = createSlice({
 
 export const { add, fetch, throwError } = ratingSlice.actions;
 
-export const selectRating = (state) => state.rating.list;
+export const selectRatingList = (state) => state.rating.list;
 
 export default ratingSlice.reducer;
